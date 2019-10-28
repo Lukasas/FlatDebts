@@ -1,0 +1,21 @@
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/']">Domů</a>
+  </li>
+  <ng-container *ngIf="auth.user$ | async as user; else login">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/addform']">Přidat</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="auth.signOut()">Odhlásit</a>
+    </li>
+    <span class="nav-item disabled nav-link ml-auto" *ngIf="user">{{ user.displayName }}</span>
+  </ng-container>
+
+  <ng-template #login>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/login']">Přihlásit</a>
+    </li>
+  </ng-template>
+</ul>

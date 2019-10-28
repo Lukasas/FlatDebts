@@ -1,0 +1,37 @@
+<ng-container *ngIf="!(auth.user$ | async)">
+  <form [formGroup]="fgrp">
+    <div class="form-group row">
+      <mat-form-field class="m-auto col-sm-10">
+        <input matInput type="text" placeholder="Login" formControlName="login" />
+      </mat-form-field>
+      <div *ngIf="username.invalid && (username.dirty || username.touched)"
+        class="form-group row col-sm-10 m-auto alert alert-danger" role="alert">
+        <div *ngIf="username.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="username.errors.email">
+          Email is in wrong format.
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <mat-form-field class="m-auto col-sm-10">
+        <input matInput type="password" placeholder="Password" formControlName="password" />
+      </mat-form-field>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="form-group row col-sm-10 m-auto alert alert-danger" role="alert">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="m-auto col-sm-10">
+        <button mat-raised-button [disabled]="fgrp.invalid" (click)="logIn()">Login</button>
+      </div>
+    </div>
+    <div *ngIf="msg | async as error" class="form-group row col-sm-10 m-auto alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  </form>
+</ng-container>
